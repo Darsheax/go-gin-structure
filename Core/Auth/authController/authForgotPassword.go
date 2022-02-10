@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"html/template"
 	"os"
-	authEntity "root/Core/Auth/Entity"
 	"root/Core/mailer"
+	"root/core/auth/authEntity"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
@@ -22,7 +22,7 @@ func AuthForgotPassword(middleware *jwt.GinJWTMiddleware, mailer *mailer.Mailer,
 
 		wd, _ := os.Getwd()
 
-		mailTemplate, err := template.ParseFiles(wd + "/Core/mailer/Template/forgotPassword.html")
+		mailTemplate, err := template.ParseFiles(wd + "/core/mailer/template/forgotPassword.html")
 		if err != nil {
 			panic(err)
 		}

@@ -2,7 +2,7 @@ package blogController
 
 import (
 	"fmt"
-	global "root/Core/Global"
+	"root/core/global"
 
 	"github.com/gin-gonic/gin"
 )

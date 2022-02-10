@@ -2,10 +2,10 @@ package auth
 
 import (
 	"context"
-	authController "root/Core/Auth/Controller"
-	authMiddleware "root/Core/Auth/Middleware"
-	authModel "root/Core/Auth/Model"
 	"root/Core/mailer"
+	"root/core/auth/authController"
+	"root/core/auth/authMiddleware"
+	"root/core/auth/authModel"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"

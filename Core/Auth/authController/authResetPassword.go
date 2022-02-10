@@ -2,10 +2,9 @@ package authController
 
 import (
 	"net/http"
-	utility "root/Core/Utility"
-
-	authEntity "root/Core/Auth/Entity"
-	authModel "root/Core/Auth/Model"
+	"root/core/auth/authEntity"
+	"root/core/auth/authModel"
+	"root/core/utility"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"

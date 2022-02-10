@@ -1,4 +1,4 @@
-package controler
+package controller
 
 //type Controler struct {
 //	Route string

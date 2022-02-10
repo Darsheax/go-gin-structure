@@ -1,9 +1,9 @@
 package blogController
 
 import (
-	authEnity "root/Core/Auth/Entity"
-	authMiddleware "root/Core/Auth/Middleware"
-	global "root/Core/Global"
+	"root/Core/global"
+	"root/core/auth/authEntity"
+	"root/core/auth/authMiddleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,7 +18,7 @@ func BlogComment(global *global.Global) {
 		user, _ := c.Get(authMiddleware.IdentityKey)
 
 		c.JSON(200, gin.H{
-			"userID": user.(*authEnity.User).Email,
+			"userID": user.(*authEntity.User).Email,
 		})
 	})
 }

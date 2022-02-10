@@ -1,9 +1,9 @@
 package authMiddleware
 
 import (
-	authEntity "root/Core/Auth/Entity"
-	authModel "root/Core/Auth/Model"
-	utility "root/Core/Utility"
+	"root/core/auth/authEntity"
+	"root/core/auth/authModel"
+	"root/core/utility"
 	"time"
 
 	jwt "github.com/appleboy/gin-jwt/v2"

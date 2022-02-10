@@ -1,9 +1,7 @@
 package main
 
-import (
-	contextStart "root/Context"
-)
+import "root/context"
 
 func main() {
-	contextStart.Start()
+	context.Start()
 }

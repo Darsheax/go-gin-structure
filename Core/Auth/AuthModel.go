@@ -1,8 +1,8 @@
 package auth
 
 import (
-	authEnity "root/Core/Auth/Entity"
-	model "root/Core/Model"
+	"root/core/auth/authEntity"
+	"root/core/model"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -10,8 +10,8 @@ import (
 
 type AuthEntity model.Entity
 
-func (e *AuthEntity) AuthLogin(name string) authEnity.User {
-	var user authEnity.User
+func (e *AuthEntity) AuthLogin(name string) authEntity.User {
+	var user authEntity.User
 	collectionUser := e.DataBase.Collection("user")
 	err := collectionUser.FindOne(e.AppContext, bson.D{{"name", name}}).Decode(&user)
 	if err != nil {

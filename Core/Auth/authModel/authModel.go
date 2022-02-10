@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	authEntity "root/Core/Auth/Entity"
-	model "root/Core/Model"
+	"root/core/auth/authEntity"
+	"root/core/model"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"

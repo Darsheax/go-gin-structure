@@ -1,14 +1,14 @@
-package contextStart
+package context
 
 import (
 	"context"
 	"reflect"
-	blogContext "root/Context/Blog"
-	auth "root/Core/Auth"
-	global "root/Core/Global"
-	model "root/Core/Model"
 	"root/Core/envRead"
 	"root/Core/mailer"
+	"root/context/blog"
+	"root/core/auth"
+	"root/core/global"
+	"root/core/model"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -64,7 +64,7 @@ func Start() {
 		Mailer:     Mailer,
 	}
 
-	Global.AddContext(blogContext.Init())
+	Global.AddContext(blog.Init())
 	Global.InitContexts(envContext)
 
 	engine.Run(":3000")

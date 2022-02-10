@@ -1,7 +1,7 @@
 package blogModel
 
 import (
-	model "root/Core/Model"
+	"root/core/model"
 
 	"go.mongodb.org/mongo-driver/mongo"
 )

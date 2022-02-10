@@ -1,8 +1,8 @@
-package blogContext
+package blog
 
 import (
-	blogController "root/Context/blog/controllers"
-	global "root/Core/Global"
+	"root/Core/global"
+	"root/context/blog/blogController"
 )
 
 func Init() *global.ContextController {
