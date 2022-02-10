@@ -1,9 +1,6 @@
 package authMiddleware
 
 import (
-	"fmt"
-	"net/http"
-	"net/url"
 	authEntity "root/Core/Auth/Entity"
 	authModel "root/Core/Auth/Model"
 	utility "root/Core/Utility"
@@ -16,9 +13,9 @@ import (
 
 var (
 	key         = []byte("secret key")
-	IdentityKey = "id"
+	IdentityKey = "mail"
 
-	timeout        = time.Minute / 4
+	timeout        = time.Minute * 20
 	cookieMaxAge   = time.Hour * 24 * 30
 	sendCookie     = true
 	secureCookie   = false
@@ -41,7 +38,6 @@ func Middleware(AuthEntity *authModel.AuthEntity) *jwt.GinJWTMiddleware {
 
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
 			if user, ok := data.(*authEntity.User); ok {
-				fmt.Println(user)
 				return jwt.MapClaims{
 					IdentityKey: user.Email,
 				}
@@ -74,8 +70,12 @@ func Middleware(AuthEntity *authModel.AuthEntity) *jwt.GinJWTMiddleware {
 			return false
 		},
 		Unauthorized: func(c *gin.Context, code int, message string) {
-			refresh := url.URL{Path: "/auth/refresh_token/" + c.Request.URL.Path}
-			c.Redirect(http.StatusFound, refresh.RequestURI())
+			c.JSON(200, gin.H{
+				"code":    code,
+				"message": message,
+			})
+			//refresh := url.URL{Path: "/auth/refresh_token/" + c.Request.URL.Path}
+			//c.Redirect(http.StatusFound, refresh.RequestURI())
 		},
 		TokenLookup: "header: Authorization, query: token, cookie: jwt",
 

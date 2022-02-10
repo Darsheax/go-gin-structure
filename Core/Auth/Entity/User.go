@@ -1,6 +1,8 @@
-package authEnity
+package authEntity
 
 import "go.mongodb.org/mongo-driver/bson/primitive"
+
+//Email is the unique key
 
 type User struct {
 	ID          primitive.ObjectID `bson:"_id,omitempty"`

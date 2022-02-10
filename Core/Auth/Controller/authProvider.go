@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	authEntity "root/Core/Auth/Entity"
+	authModel "root/Core/Auth/Model"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
@@ -12,7 +13,7 @@ import (
 	"github.com/markbates/goth/providers/google"
 )
 
-func AuthProvider(middleware *jwt.GinJWTMiddleware, authRoute *gin.RouterGroup) {
+func AuthProvider(middleware *jwt.GinJWTMiddleware, AuthEntity *authModel.AuthEntity, authRoute *gin.RouterGroup) {
 
 	goth.UseProviders(
 		google.New("463008552495-v343bl24nekr11utnftg9u6neuuoge45.apps.googleusercontent.com", "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", "http://localhost:3000/auth/google/callback", "email", "profile"),
@@ -46,11 +47,6 @@ func AuthProvider(middleware *jwt.GinJWTMiddleware, authRoute *gin.RouterGroup) 
 
 		user.UseProvider = true
 
-		//registerEntity := authModel.AuthRegisterEntity{
-		//	DataBase:   global.DataBase,
-		//	AppContext: global.AppContext,
-		//}
-
 		/*TODO:
 		If exist :
 			Login
@@ -58,14 +54,14 @@ func AuthProvider(middleware *jwt.GinJWTMiddleware, authRoute *gin.RouterGroup) 
 			Register
 		*/
 
-		//_, err = registerEntity.Register(user)
-		//if err != nil {
-		//	c.JSON(http.StatusBadRequest, gin.H{
-		//		"message": "Failed",
-		//		"error":   err.Error(),
-		//	})
-		//	return
-		//}
+		_, err = AuthEntity.Register(user)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": "Failed",
+				"error":   err.Error(),
+			})
+			return
+		}
 
 		tokenString, _, err := middleware.TokenGenerator(&user)
 		if err != nil {

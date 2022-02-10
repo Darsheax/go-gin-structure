@@ -1,4 +1,4 @@
-package authEnity
+package authEntity
 
 type Register struct {
 	UserName string `form:"username" json:"username" binding:"alpha,required"`

@@ -1,5 +1,9 @@
 package main
 
-import contextStart "root/Context"
+import (
+	contextStart "root/Context"
+)
 
-func main() { contextStart.Start() }
+func main() {
+	contextStart.Start()
+}

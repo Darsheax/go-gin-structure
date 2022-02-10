@@ -1,6 +1,7 @@
 package authModel
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	authEntity "root/Core/Auth/Entity"
@@ -13,7 +14,9 @@ import (
 type AuthEntity model.Entity
 
 func (e *AuthEntity) AuthLogin(email string) authEntity.User {
+
 	var user authEntity.User
+
 	collectionUser := e.DataBase.Collection("user")
 	err := collectionUser.FindOne(e.AppContext, bson.D{{"email", email}}).Decode(&user)
 	if err != nil {
@@ -22,10 +25,13 @@ func (e *AuthEntity) AuthLogin(email string) authEntity.User {
 		}
 		panic(err)
 	}
+
 	return user
+
 }
 
 func (e *AuthEntity) Register(user authEntity.User) (*mongo.InsertOneResult, error) {
+
 	collectionUser := e.DataBase.Collection("user")
 
 	var existingUser authEntity.User
@@ -42,5 +48,31 @@ func (e *AuthEntity) Register(user authEntity.User) (*mongo.InsertOneResult, err
 		panic(err)
 	}
 	return result, nil
+
+}
+
+func (e *AuthEntity) ResetPassword(email string, passwordHashed string) error {
+
+	collectionUser := e.DataBase.Collection("user")
+
+	var user authEntity.User
+	collectionUser.FindOne(e.AppContext, bson.D{{"email", email}}).Decode(&user)
+
+	if (user == authEntity.User{}) {
+		return errors.New("utilisateur inexistant")
+	}
+
+	filter := bson.D{{"_id", user.ID}, {"useprovider", false}}
+	update := bson.D{{"$set", bson.D{{"password", passwordHashed}}}}
+
+	_, err := collectionUser.UpdateOne(context.TODO(), filter, update)
+	if err != nil {
+		return err
+	}
+
+	//if exist => continue else => ERROR
+	//continue => change password
+
+	return nil
 
 }

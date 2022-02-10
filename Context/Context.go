@@ -8,6 +8,7 @@ import (
 	global "root/Core/Global"
 	model "root/Core/Model"
 	"root/Core/envRead"
+	"root/Core/mailer"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -47,7 +48,12 @@ func Start() {
 		})
 	}
 
-	middleware := auth.Init(DataBase, ctx, engine)
+	//Mailer
+	Mailer := &mailer.Mailer{}
+	Mailer.Start()
+
+	//Authentificator
+	middleware := auth.Init(DataBase, ctx, engine, Mailer)
 
 	//DEFINE Global struct
 	Global := &global.Global{
@@ -55,6 +61,7 @@ func Start() {
 		DataBase:   DataBase,
 		Auth:       middleware,
 		AppContext: ctx,
+		Mailer:     Mailer,
 	}
 
 	Global.AddContext(blogContext.Init())

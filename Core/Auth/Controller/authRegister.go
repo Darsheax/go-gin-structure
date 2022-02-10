@@ -18,31 +18,31 @@ func AuthRegister(AuthEntity *authModel.AuthEntity, authRoute *gin.RouterGroup) 
 			return
 		}
 
-		//password, _ := utility.HashPassword(register.Password)
+		password, _ := utility.HashPassword(register.Password)
 
-		//user := authEntity.User{
-		//	Name:     register.UserName,
-		//	Email:    register.Email,
-		//	Password: password,
-		//}
+		user := authEntity.User{
+			Name:     register.UserName,
+			Email:    register.Email,
+			Password: password,
+		}
 
-		//id, err := AuthEntity.Register(user)
-		//
-		//if err != nil {
-		//	c.JSON(http.StatusBadRequest, gin.H{
-		//		"message": "Failed",
-		//		"error":   err.Error(),
-		//	})
-		//	return
-		//}
-		//
-		//c.JSON(200, gin.H{
-		//	"message":  "success",
-		//	"username": user.Name,
-		//	"email":    user.Email,
-		//	"password": user.Password,
-		//	"ID":       id,
-		//})
+		id, err := AuthEntity.Register(user)
+
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": "Failed",
+				"error":   err.Error(),
+			})
+			return
+		}
+
+		c.JSON(200, gin.H{
+			"message":  "success",
+			"username": user.Name,
+			"email":    user.Email,
+			"password": user.Password,
+			"ID":       id,
+		})
 
 	})
 }
