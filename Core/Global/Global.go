@@ -3,6 +3,7 @@ package global
 import (
 	"context"
 	"root/Core/mailer"
+	"root/core/translator"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
@@ -18,6 +19,7 @@ type Global struct {
 	Auth       *jwt.GinJWTMiddleware
 	Validator  *validator.Validate
 	Mailer     *mailer.Mailer
+	Translator *translator.Translator
 }
 
 func (global *Global) AddContext(context *ContextController) {

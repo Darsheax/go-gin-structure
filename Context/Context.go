@@ -4,11 +4,12 @@ import (
 	"context"
 	"reflect"
 	"root/Core/global"
+	"root/Core/mailer"
 	"root/context/blog"
 	"root/core/auth"
 	"root/core/envRead"
-	"root/Core/mailer"
 	"root/core/model"
+	"root/core/translator"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -52,6 +53,10 @@ func Start() {
 	Mailer := &mailer.Mailer{}
 	Mailer.Start()
 
+	//Translator
+	Translator := &translator.Translator{}
+	Translator.New()
+
 	//Authentificator
 	middleware := auth.Init(DataBase, ctx, engine, Mailer)
 
@@ -62,6 +67,7 @@ func Start() {
 		Auth:       middleware,
 		AppContext: ctx,
 		Mailer:     Mailer,
+		Translator: Translator,
 	}
 
 	Global.AddContext(blog.Init())
