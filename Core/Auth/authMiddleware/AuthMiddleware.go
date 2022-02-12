@@ -40,6 +40,7 @@ func Middleware(AuthEntity *authModel.AuthEntity) *jwt.GinJWTMiddleware {
 			if user, ok := data.(*authEntity.User); ok {
 				return jwt.MapClaims{
 					IdentityKey: user.Email,
+					"Name":      user.Name,
 				}
 			}
 			return jwt.MapClaims{}
@@ -48,6 +49,7 @@ func Middleware(AuthEntity *authModel.AuthEntity) *jwt.GinJWTMiddleware {
 			claims := jwt.ExtractClaims(c)
 			return &authEntity.User{
 				Email: claims[IdentityKey].(string),
+				Name:  claims["Name"].(string),
 			}
 		},
 		Authenticator: func(c *gin.Context) (interface{}, error) {
