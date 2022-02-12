@@ -1,6 +1,0 @@
-//ne pas passer pas des import dans les controllers tous passer en argument
-// faire le truc qui permets de multiplier les controllers 
-//un tableau dans un struct je sais plus ou 
-// faire une methods dans le struct context qui permet d'activer tous les controllers
-// adapter la logique du .env aux modification citer plus haut 
-// reflechir au faite de mettre des listener sur les controllers

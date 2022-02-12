@@ -2,12 +2,10 @@ package mailer
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
 	"net/smtp"
-	"os"
+	"root/core/yml"
 
-	"gopkg.in/yaml.v2"
+	"github.com/mitchellh/mapstructure"
 )
 
 type Config struct {
@@ -22,25 +20,14 @@ type Mailer struct {
 	Config *Config
 }
 
-func GetConf() *Config {
-
-	var config *Config
-
-	pwd, _ := os.Getwd()
-	yamlFile, err := ioutil.ReadFile(pwd + "/Core/mailer/config.yml")
-	if err != nil {
-		log.Printf("yamlFile.Get err   #%v ", err)
-	}
-	err = yaml.Unmarshal(yamlFile, &config)
-	if err != nil {
-		log.Fatalf("Unmarshal: %v", err)
-	}
-
-	return config
-}
-
 func (mail *Mailer) Start() {
-	mail.Config = GetConf()
+
+	config := &Config{}
+
+	data := yml.Read("/core/mailer/config.yml")
+	mapstructure.Decode(data, config)
+
+	mail.Config = config
 	mail.Auth = smtp.PlainAuth("", mail.Config.Sender, mail.Config.Password, mail.Config.Host)
 }
 

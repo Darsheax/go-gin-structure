@@ -10,8 +10,8 @@ func Init() *global.ContextController {
 	context := &global.ContextController{
 		Name: "blog",
 		Start: func(global *global.Global) {
-			blogController.BlogComment(global)
 			blogController.BlogUser(global)
+			blogController.BlogComment(global)
 		},
 	}
 

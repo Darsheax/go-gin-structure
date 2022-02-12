@@ -2,7 +2,7 @@
 
 ## Config files
 
-### Core -> Mailer
+### /Core/Mailer
 - host 
 - port
 - sender
